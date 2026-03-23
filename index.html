@@ -39,6 +39,11 @@
               <div class="control-value"><span id="targetMileageValue"></span></div>
             </div>
             <div class="control-card">
+              <label for="currentMileageInput">Current mileage</label>
+              <input id="currentMileageInput" type="number" min="0" max="500000" step="1000" value="75000" />
+              <div class="control-note">Used for current truck value and the next scheduled maintenance package.</div>
+            </div>
+            <div class="control-card">
               <label for="viewMode">Cost view</label>
               <select id="viewMode">
                 <option value="required">Required only</option>
@@ -86,6 +91,41 @@
           </section>
 
           <section class="chart-grid">
+            <article class="panel">
+              <div class="panel-header">
+                <h2>Next maintenance decision</h2>
+                <p>
+                  Based on your current mileage, this shows the next scheduled maintenance stop, what it costs,
+                  and whether it looks economically sensible relative to truck value.
+                </p>
+              </div>
+              <div class="decision-hero">
+                <div class="decision-score">
+                  <span class="decision-label">Worth-it call</span>
+                  <strong id="worthItCall"></strong>
+                  <span id="worthItSubtext" class="decision-note"></span>
+                </div>
+                <div class="decision-metrics">
+                  <div><span>Current truck value</span><strong id="liveCurrentValue"></strong></div>
+                  <div><span>Next interval</span><strong id="nextIntervalMileage"></strong></div>
+                  <div><span>Required package cost</span><strong id="nextRequiredCost"></strong></div>
+                  <div><span>Max package cost</span><strong id="nextMaxCost"></strong></div>
+                  <div><span>Required as % of value</span><strong id="nextRequiredPct"></strong></div>
+                  <div><span>Max as % of value</span><strong id="nextMaxPct"></strong></div>
+                </div>
+              </div>
+              <div class="decision-lists">
+                <div>
+                  <h3>Required next</h3>
+                  <div id="nextRequiredItems" class="pill-wrap"></div>
+                </div>
+                <div>
+                  <h3>Optional / as-needed next</h3>
+                  <div id="nextOptionalItems" class="pill-wrap"></div>
+                </div>
+              </div>
+            </article>
+
             <article class="panel">
               <div class="panel-header">
                 <h2>Cumulative lifecycle cost</h2>

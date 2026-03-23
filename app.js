@@ -15,6 +15,7 @@
     targetMileage: 500000,
     viewMode: "required",
     conditionMode: "good",
+    currentMileage: 75000,
   };
 
   let elements;
@@ -31,6 +32,7 @@
       assumptionText: document.querySelector("#assumptionText"),
       targetMileage: document.querySelector("#targetMileage"),
       targetMileageValue: document.querySelector("#targetMileageValue"),
+      currentMileageInput: document.querySelector("#currentMileageInput"),
       viewMode: document.querySelector("#viewMode"),
       conditionMode: document.querySelector("#conditionMode"),
       requiredTotal: document.querySelector("#requiredTotal"),
@@ -44,6 +46,16 @@
       mileagePenalty: document.querySelector("#mileagePenalty"),
       valueAt500k: document.querySelector("#valueAt500k"),
       valueModelSummary: document.querySelector("#valueModelSummary"),
+      worthItCall: document.querySelector("#worthItCall"),
+      worthItSubtext: document.querySelector("#worthItSubtext"),
+      liveCurrentValue: document.querySelector("#liveCurrentValue"),
+      nextIntervalMileage: document.querySelector("#nextIntervalMileage"),
+      nextRequiredCost: document.querySelector("#nextRequiredCost"),
+      nextMaxCost: document.querySelector("#nextMaxCost"),
+      nextRequiredPct: document.querySelector("#nextRequiredPct"),
+      nextMaxPct: document.querySelector("#nextMaxPct"),
+      nextRequiredItems: document.querySelector("#nextRequiredItems"),
+      nextOptionalItems: document.querySelector("#nextOptionalItems"),
       lineChart: document.querySelector("#lineChart"),
       serviceBars: document.querySelector("#serviceBars"),
       valueChart: document.querySelector("#valueChart"),
@@ -68,6 +80,7 @@
     state.targetMileage = Number(elements.targetMileage.value);
     state.viewMode = elements.viewMode.value;
     state.conditionMode = elements.conditionMode.value;
+    state.currentMileage = Number(elements.currentMileageInput.value);
 
     attachEvents();
     render();
@@ -81,6 +94,11 @@
 
     elements.viewMode.addEventListener("change", (event) => {
       state.viewMode = event.target.value;
+      render();
+    });
+
+    elements.currentMileageInput.addEventListener("input", (event) => {
+      state.currentMileage = Math.max(0, Math.min(500000, Number(event.target.value) || 0));
       render();
     });
 
@@ -111,6 +129,7 @@
   function render() {
     const model = buildLifecycleModel();
     const valueModel = buildTruckValueModel(model.timeline);
+    const nextPackage = buildNextMaintenanceDecision(model.timeline, valueModel);
 
     elements.assumptionText.textContent = `${state.data.assumptions.extrapolationMethod} Value model uses KBB/Edmunds/iSeeCars anchors plus an explicit mileage penalty.`;
     elements.targetMileageValue.textContent = formatMileage(state.targetMileage);
@@ -124,7 +143,8 @@
     elements.currentTradeAnchor.textContent = formatMoney(valueModel.currentTradeValue);
     elements.mileagePenalty.textContent = `${(valueModel.currentMileagePenalty * 100).toFixed(1)}% of same-age typical-mile value`;
     elements.valueAt500k.textContent = formatMoney(valueModel.valueAt500k);
-    elements.valueModelSummary.textContent = `${state.data.valueModel.vehicle}. Baseline purchase price ${formatMoney(state.data.valueModel.purchasePrice)} in August 2022, with a modeled current private-party value anchored at ${formatMoney(valueModel.currentPrivateValue)} in ${titleCase(state.conditionMode)} condition.`;
+    elements.valueModelSummary.textContent = `${state.data.valueModel.vehicle}. Baseline purchase price ${formatMoney(state.data.valueModel.purchasePrice)} in August 2022, with a modeled current private-party value anchored at ${formatMoney(valueModel.currentPrivateValue)} at ${formatMileage(state.currentMileage)} in ${titleCase(state.conditionMode)} condition.`;
+    renderNextMaintenanceDecision(nextPackage);
 
     renderLifecycleChart(model.timeline);
     renderServiceBars(model.serviceTotals);
@@ -234,18 +254,37 @@
     const config = state.data.valueModel;
     const purchaseDate = new Date(`${config.purchaseDate}T00:00:00`);
     const currentDate = new Date(`${config.currentDate}T00:00:00`);
-    const currentAgeYears = (currentDate - purchaseDate) / MS_PER_YEAR;
-    const typicalMilesNow = config.assumedTypicalMilesPerYear * currentAgeYears;
-    const ageOnlyCurrentValue =
-      config.purchasePrice * interpolateAgeResidual(currentAgeYears, config.ageResidualAnchors);
+    const baselineCurrentAgeYears = (currentDate - purchaseDate) / MS_PER_YEAR;
+    const observedMilesPerYear = estimateMilesPerYear(config.currentMileage, baselineCurrentAgeYears);
+    const baselineAgeOnlyCurrentValue =
+      config.purchasePrice * interpolateAgeResidual(baselineCurrentAgeYears, config.ageResidualAnchors);
     const trimMarketFactor =
-      config.edmundsTypicalMileageAveragePrivatePartyValue / ageOnlyCurrentValue;
-    const excessMilesNow = Math.max(0, config.currentMileage - typicalMilesNow);
+      config.edmundsTypicalMileageAveragePrivatePartyValue / baselineAgeOnlyCurrentValue;
     const conditionMultiplier = CONDITION_MULTIPLIERS[state.conditionMode];
-    const currentPrivateValue = config.currentPrivatePartyValue * conditionMultiplier;
-    const currentMileagePenalty = currentPrivateValue / (ageOnlyCurrentValue * trimMarketFactor);
+    const baselineAdjustedPrivateValue = config.currentPrivatePartyValue * conditionMultiplier;
+    const baselineTypicalAgeValue =
+      config.purchasePrice *
+      interpolateAgeResidual(baselineCurrentAgeYears, config.ageResidualAnchors) *
+      trimMarketFactor;
+    const baselineTypicalMiles = config.assumedTypicalMilesPerYear * baselineCurrentAgeYears;
+    const baselineExcessMiles = Math.max(0, config.currentMileage - baselineTypicalMiles);
+    const baselinePenalty =
+      baselineAdjustedPrivateValue / baselineTypicalAgeValue;
     const perMilePenaltyRate =
-      excessMilesNow > 0 ? -Math.log(currentMileagePenalty) / excessMilesNow : 0;
+      baselineExcessMiles > 0 ? -Math.log(baselinePenalty) / baselineExcessMiles : 0;
+    const currentAgeYears =
+      baselineCurrentAgeYears + (state.currentMileage - config.currentMileage) / observedMilesPerYear;
+    const currentPrivateValue = projectTruckValue({
+      mileage: state.currentMileage,
+      ageYears: currentAgeYears,
+      config,
+      trimMarketFactor,
+      perMilePenaltyRate,
+    });
+    const currentAgeOnlyValue =
+      config.purchasePrice * interpolateAgeResidual(currentAgeYears, config.ageResidualAnchors);
+    const currentMileagePenalty =
+      currentPrivateValue / (currentAgeOnlyValue * trimMarketFactor);
 
     const valueByMileage = new Map();
     const timelineValues = [];
@@ -253,7 +292,7 @@
     valueByMileage.set(0, config.purchasePrice);
 
     for (const entry of timeline) {
-      const ageYears = currentAgeYears + (entry.mileage - config.currentMileage) / estimateMilesPerYear(config.currentMileage, currentAgeYears);
+      const ageYears = currentAgeYears + (entry.mileage - state.currentMileage) / observedMilesPerYear;
       const truckValue = projectTruckValue({
         mileage: entry.mileage,
         ageYears,
@@ -276,13 +315,51 @@
 
     return {
       currentPrivateValue,
-      currentTradeValue: config.currentTradeInValue * conditionMultiplier,
+      currentTradeValue: currentPrivateValue * (config.currentTradeInValue / config.currentPrivatePartyValue),
       currentMileagePenalty,
       valueByMileage,
       timelineValues,
       selectedProjectedValue,
       selectedMaintenanceToValueRatio: selectedProjectedValue > 0 ? selectedMaintenance / selectedProjectedValue : 0,
       valueAt500k: timelineValues[timelineValues.length - 1]?.projectedValue || config.salvageFloor,
+    };
+  }
+
+  function buildNextMaintenanceDecision(timeline, valueModel) {
+    const nextEntry =
+      timeline.find((entry) => entry.mileage >= state.currentMileage) ||
+      timeline[timeline.length - 1];
+    const truckValueNow = valueModel.currentPrivateValue;
+    const requiredPct = truckValueNow > 0 ? nextEntry.requiredCost / truckValueNow : Infinity;
+    const maxPct = truckValueNow > 0 ? nextEntry.maxCost / truckValueNow : Infinity;
+    const thresholds = state.data.valueModel.inflectionThresholds;
+
+    let call = "Worth doing";
+    let subtext = "Required package cost is a modest percentage of current truck value.";
+
+    if (requiredPct >= thresholds.maintenanceToValueQuestionable) {
+      call = "High-cost but still worth doing";
+      subtext = "This is expensive relative to truck value, but the required portion is still a normal keep-the-truck-alive expense.";
+    } else if (maxPct >= thresholds.maintenanceToValueQuestionable && nextEntry.asNeededItems.length > 0) {
+      call = "Do required, scrutinize optional";
+      subtext = "The required work looks fine, but some optional items are large enough to review one by one.";
+    }
+
+    if (
+      nextEntry.asNeededItems.length > 0 &&
+      maxPct >= thresholds.maintenanceToValueNotWorthIt
+    ) {
+      call = "Skip some optional work unless symptoms exist";
+      subtext = "The full package is too large a share of truck value to approve blindly. Do the required items first and justify optional ones separately.";
+    }
+
+    return {
+      nextEntry,
+      truckValueNow,
+      requiredPct,
+      maxPct,
+      call,
+      subtext,
     };
   }
 
@@ -417,6 +494,19 @@
     );
   }
 
+  function renderNextMaintenanceDecision(decision) {
+    elements.worthItCall.textContent = decision.call;
+    elements.worthItSubtext.textContent = decision.subtext;
+    elements.liveCurrentValue.textContent = formatMoney(decision.truckValueNow);
+    elements.nextIntervalMileage.textContent = formatMileage(decision.nextEntry.mileage);
+    elements.nextRequiredCost.textContent = formatMoney(decision.nextEntry.requiredCost);
+    elements.nextMaxCost.textContent = formatMoney(decision.nextEntry.maxCost);
+    elements.nextRequiredPct.textContent = formatPercent(decision.requiredPct);
+    elements.nextMaxPct.textContent = formatPercent(decision.maxPct);
+    elements.nextRequiredItems.innerHTML = renderPills(decision.nextEntry.requiredItems);
+    elements.nextOptionalItems.innerHTML = renderPills(decision.nextEntry.asNeededItems);
+  }
+
   function renderTimeline(timeline, valueByMileage) {
     elements.timelineBody.innerHTML = timeline
       .map(
@@ -453,7 +543,7 @@
       }
     }
 
-    const currentValue = valueByMileage.get(state.targetMileage) || 0;
+    const currentValue = valueByMileage.get(state.currentMileage) || valueByMileage.get(state.targetMileage) || 0;
     elements.inflectionBody.innerHTML = [...services.values()]
       .sort((a, b) => a.serviceId - b.serviceId)
       .map((item) => `
@@ -497,7 +587,7 @@
   }
 
   function renderCostTable(serviceUsage, valueByMileage) {
-    const currentValue = valueByMileage.get(state.targetMileage) || 0;
+    const currentValue = valueByMileage.get(state.currentMileage) || valueByMileage.get(state.targetMileage) || 0;
     elements.costTableBody.innerHTML = serviceUsage
       .map((service) => {
         const ratio = currentValue > 0 ? service.activeCost / currentValue : 0;
@@ -620,6 +710,10 @@
       currency: "USD",
       maximumFractionDigits: 0,
     }).format(value);
+  }
+
+  function formatPercent(value) {
+    return `${(value * 100).toFixed(1)}%`;
   }
 
   function formatMileage(value) {
