@@ -1,0 +1,898 @@
+{
+  "5": {
+    "intervalK": 5,
+    "required": [
+      {
+        "serviceId": 2,
+        "service": "Tire rotation and inspect for damage",
+        "severity": "White",
+        "estimatedCost": 30
+      },
+      {
+        "serviceId": 1,
+        "service": "Engine oil and filter",
+        "severity": "Red",
+        "estimatedCost": 90
+      },
+      {
+        "serviceId": 5,
+        "service": "Grease driveshaft (lithium chassis grease)",
+        "severity": "Red",
+        "estimatedCost": 95
+      }
+    ],
+    "asNeeded": [
+      {
+        "serviceId": 4,
+        "service": "Engine intake air filter",
+        "severity": "Yellow",
+        "estimatedCost": 40
+      }
+    ]
+  },
+  "10": {
+    "intervalK": 10,
+    "required": [
+      {
+        "serviceId": 1,
+        "service": "Engine oil and filter",
+        "severity": "White",
+        "estimatedCost": 90
+      },
+      {
+        "serviceId": 2,
+        "service": "Tire rotation and inspect for damage",
+        "severity": "White",
+        "estimatedCost": 30
+      },
+      {
+        "serviceId": 5,
+        "service": "Grease driveshaft (lithium chassis grease)",
+        "severity": "Red",
+        "estimatedCost": 95
+      }
+    ],
+    "asNeeded": [
+      {
+        "serviceId": 4,
+        "service": "Engine intake air filter",
+        "severity": "Yellow",
+        "estimatedCost": 40
+      },
+      {
+        "serviceId": 14,
+        "service": "Front brake pads",
+        "severity": "Yellow",
+        "estimatedCost": 300
+      }
+    ]
+  },
+  "15": {
+    "intervalK": 15,
+    "required": [
+      {
+        "serviceId": 2,
+        "service": "Tire rotation and inspect for damage",
+        "severity": "White",
+        "estimatedCost": 30
+      },
+      {
+        "serviceId": 5,
+        "service": "Grease driveshaft (lithium chassis grease)",
+        "severity": "White",
+        "estimatedCost": 95
+      },
+      {
+        "serviceId": 1,
+        "service": "Engine oil and filter",
+        "severity": "Red",
+        "estimatedCost": 90
+      },
+      {
+        "serviceId": 7,
+        "service": "Rear differential fluid (gear oil 75W-85 GL-5)",
+        "severity": "Red",
+        "estimatedCost": 160
+      },
+      {
+        "serviceId": 8,
+        "service": "Front differential fluid (gear oil 75W-85 GL-5)",
+        "severity": "Red",
+        "estimatedCost": 160
+      }
+    ],
+    "asNeeded": [
+      {
+        "serviceId": 4,
+        "service": "Engine intake air filter",
+        "severity": "Yellow",
+        "estimatedCost": 40
+      }
+    ]
+  },
+  "20": {
+    "intervalK": 20,
+    "required": [
+      {
+        "serviceId": 1,
+        "service": "Engine oil and filter",
+        "severity": "White",
+        "estimatedCost": 90
+      },
+      {
+        "serviceId": 2,
+        "service": "Tire rotation and inspect for damage",
+        "severity": "White",
+        "estimatedCost": 30
+      },
+      {
+        "serviceId": 3,
+        "service": "Cabin air filter",
+        "severity": "White",
+        "estimatedCost": 70
+      },
+      {
+        "serviceId": 5,
+        "service": "Grease driveshaft (lithium chassis grease)",
+        "severity": "Red",
+        "estimatedCost": 95
+      }
+    ],
+    "asNeeded": [
+      {
+        "serviceId": 4,
+        "service": "Engine intake air filter",
+        "severity": "Yellow",
+        "estimatedCost": 40
+      },
+      {
+        "serviceId": 13,
+        "service": "Rear brake shoes",
+        "severity": "Yellow",
+        "estimatedCost": 360
+      },
+      {
+        "serviceId": 14,
+        "service": "Front brake pads",
+        "severity": "Yellow",
+        "estimatedCost": 300
+      }
+    ]
+  },
+  "25": {
+    "intervalK": 25,
+    "required": [
+      {
+        "serviceId": 2,
+        "service": "Tire rotation and inspect for damage",
+        "severity": "White",
+        "estimatedCost": 30
+      },
+      {
+        "serviceId": 1,
+        "service": "Engine oil and filter",
+        "severity": "Red",
+        "estimatedCost": 90
+      },
+      {
+        "serviceId": 5,
+        "service": "Grease driveshaft (lithium chassis grease)",
+        "severity": "Red",
+        "estimatedCost": 95
+      }
+    ],
+    "asNeeded": [
+      {
+        "serviceId": 4,
+        "service": "Engine intake air filter",
+        "severity": "Yellow",
+        "estimatedCost": 40
+      },
+      {
+        "serviceId": 16,
+        "service": "Brake fluid",
+        "severity": "Yellow",
+        "estimatedCost": 185
+      }
+    ]
+  },
+  "30": {
+    "intervalK": 30,
+    "required": [
+      {
+        "serviceId": 1,
+        "service": "Engine oil and filter",
+        "severity": "White",
+        "estimatedCost": 90
+      },
+      {
+        "serviceId": 2,
+        "service": "Tire rotation and inspect for damage",
+        "severity": "White",
+        "estimatedCost": 30
+      },
+      {
+        "serviceId": 5,
+        "service": "Grease driveshaft (lithium chassis grease)",
+        "severity": "White",
+        "estimatedCost": 95
+      },
+      {
+        "serviceId": 7,
+        "service": "Rear differential fluid (gear oil 75W-85 GL-5)",
+        "severity": "White",
+        "estimatedCost": 160
+      },
+      {
+        "serviceId": 8,
+        "service": "Front differential fluid (gear oil 75W-85 GL-5)",
+        "severity": "White",
+        "estimatedCost": 160
+      },
+      {
+        "serviceId": 6,
+        "service": "Transfer case oil (gear oil LF 75W)",
+        "severity": "Red",
+        "estimatedCost": 185
+      }
+    ],
+    "asNeeded": [
+      {
+        "serviceId": 4,
+        "service": "Engine intake air filter",
+        "severity": "Yellow",
+        "estimatedCost": 40
+      },
+      {
+        "serviceId": 14,
+        "service": "Front brake pads",
+        "severity": "Yellow",
+        "estimatedCost": 300
+      }
+    ]
+  },
+  "35": {
+    "intervalK": 35,
+    "required": [
+      {
+        "serviceId": 2,
+        "service": "Tire rotation and inspect for damage",
+        "severity": "White",
+        "estimatedCost": 30
+      },
+      {
+        "serviceId": 1,
+        "service": "Engine oil and filter",
+        "severity": "Red",
+        "estimatedCost": 90
+      },
+      {
+        "serviceId": 5,
+        "service": "Grease driveshaft (lithium chassis grease)",
+        "severity": "Red",
+        "estimatedCost": 95
+      }
+    ],
+    "asNeeded": [
+      {
+        "serviceId": 4,
+        "service": "Engine intake air filter",
+        "severity": "Yellow",
+        "estimatedCost": 40
+      }
+    ]
+  },
+  "40": {
+    "intervalK": 40,
+    "required": [
+      {
+        "serviceId": 1,
+        "service": "Engine oil and filter",
+        "severity": "White",
+        "estimatedCost": 90
+      },
+      {
+        "serviceId": 2,
+        "service": "Tire rotation and inspect for damage",
+        "severity": "White",
+        "estimatedCost": 30
+      },
+      {
+        "serviceId": 3,
+        "service": "Cabin air filter",
+        "severity": "White",
+        "estimatedCost": 70
+      },
+      {
+        "serviceId": 5,
+        "service": "Grease driveshaft (lithium chassis grease)",
+        "severity": "Red",
+        "estimatedCost": 95
+      }
+    ],
+    "asNeeded": [
+      {
+        "serviceId": 4,
+        "service": "Engine intake air filter",
+        "severity": "Yellow",
+        "estimatedCost": 40
+      },
+      {
+        "serviceId": 13,
+        "service": "Rear brake shoes",
+        "severity": "Yellow",
+        "estimatedCost": 360
+      },
+      {
+        "serviceId": 14,
+        "service": "Front brake pads",
+        "severity": "Yellow",
+        "estimatedCost": 300
+      }
+    ]
+  },
+  "45": {
+    "intervalK": 45,
+    "required": [
+      {
+        "serviceId": 2,
+        "service": "Tire rotation and inspect for damage",
+        "severity": "White",
+        "estimatedCost": 30
+      },
+      {
+        "serviceId": 5,
+        "service": "Grease driveshaft (lithium chassis grease)",
+        "severity": "White",
+        "estimatedCost": 95
+      },
+      {
+        "serviceId": 1,
+        "service": "Engine oil and filter",
+        "severity": "Red",
+        "estimatedCost": 90
+      },
+      {
+        "serviceId": 7,
+        "service": "Rear differential fluid (gear oil 75W-85 GL-5)",
+        "severity": "Red",
+        "estimatedCost": 160
+      },
+      {
+        "serviceId": 8,
+        "service": "Front differential fluid (gear oil 75W-85 GL-5)",
+        "severity": "Red",
+        "estimatedCost": 160
+      }
+    ],
+    "asNeeded": [
+      {
+        "serviceId": 4,
+        "service": "Engine intake air filter",
+        "severity": "Yellow",
+        "estimatedCost": 40
+      }
+    ]
+  },
+  "50": {
+    "intervalK": 50,
+    "required": [
+      {
+        "serviceId": 1,
+        "service": "Engine oil and filter",
+        "severity": "White",
+        "estimatedCost": 90
+      },
+      {
+        "serviceId": 2,
+        "service": "Tire rotation and inspect for damage",
+        "severity": "White",
+        "estimatedCost": 30
+      },
+      {
+        "serviceId": 10,
+        "service": "Power steering fluid (Dexron II or III)",
+        "severity": "White",
+        "estimatedCost": 185
+      },
+      {
+        "serviceId": 5,
+        "service": "Grease driveshaft (lithium chassis grease)",
+        "severity": "Red",
+        "estimatedCost": 95
+      }
+    ],
+    "asNeeded": [
+      {
+        "serviceId": 4,
+        "service": "Engine intake air filter",
+        "severity": "Yellow",
+        "estimatedCost": 40
+      },
+      {
+        "serviceId": 14,
+        "service": "Front brake pads",
+        "severity": "Yellow",
+        "estimatedCost": 300
+      },
+      {
+        "serviceId": 16,
+        "service": "Brake fluid",
+        "severity": "Yellow",
+        "estimatedCost": 185
+      }
+    ]
+  },
+  "55": {
+    "intervalK": 55,
+    "required": [
+      {
+        "serviceId": 2,
+        "service": "Tire rotation and inspect for damage",
+        "severity": "White",
+        "estimatedCost": 30
+      },
+      {
+        "serviceId": 1,
+        "service": "Engine oil and filter",
+        "severity": "Red",
+        "estimatedCost": 90
+      },
+      {
+        "serviceId": 5,
+        "service": "Grease driveshaft (lithium chassis grease)",
+        "severity": "Red",
+        "estimatedCost": 95
+      }
+    ],
+    "asNeeded": [
+      {
+        "serviceId": 4,
+        "service": "Engine intake air filter",
+        "severity": "Yellow",
+        "estimatedCost": 40
+      }
+    ]
+  },
+  "60": {
+    "intervalK": 60,
+    "required": [
+      {
+        "serviceId": 1,
+        "service": "Engine oil and filter",
+        "severity": "White",
+        "estimatedCost": 90
+      },
+      {
+        "serviceId": 2,
+        "service": "Tire rotation and inspect for damage",
+        "severity": "White",
+        "estimatedCost": 30
+      },
+      {
+        "serviceId": 3,
+        "service": "Cabin air filter",
+        "severity": "White",
+        "estimatedCost": 70
+      },
+      {
+        "serviceId": 5,
+        "service": "Grease driveshaft (lithium chassis grease)",
+        "severity": "White",
+        "estimatedCost": 95
+      },
+      {
+        "serviceId": 6,
+        "service": "Transfer case oil (gear oil LF 75W)",
+        "severity": "White",
+        "estimatedCost": 185
+      },
+      {
+        "serviceId": 7,
+        "service": "Rear differential fluid (gear oil 75W-85 GL-5)",
+        "severity": "White",
+        "estimatedCost": 160
+      },
+      {
+        "serviceId": 8,
+        "service": "Front differential fluid (gear oil 75W-85 GL-5)",
+        "severity": "White",
+        "estimatedCost": 160
+      },
+      {
+        "serviceId": 9,
+        "service": "Spark plugs (Denso FK20HBR8, iridium)",
+        "severity": "White",
+        "estimatedCost": 500
+      },
+      {
+        "serviceId": 12,
+        "service": "Transmission fluid (Toyota ATF WS / manual-specific)",
+        "severity": "Red",
+        "estimatedCost": 340
+      }
+    ],
+    "asNeeded": [
+      {
+        "serviceId": 4,
+        "service": "Engine intake air filter",
+        "severity": "Yellow",
+        "estimatedCost": 40
+      },
+      {
+        "serviceId": 13,
+        "service": "Rear brake shoes",
+        "severity": "Yellow",
+        "estimatedCost": 360
+      },
+      {
+        "serviceId": 14,
+        "service": "Front brake pads",
+        "severity": "Yellow",
+        "estimatedCost": 300
+      }
+    ]
+  },
+  "65": {
+    "intervalK": 65,
+    "required": [
+      {
+        "serviceId": 2,
+        "service": "Tire rotation and inspect for damage",
+        "severity": "White",
+        "estimatedCost": 30
+      },
+      {
+        "serviceId": 1,
+        "service": "Engine oil and filter",
+        "severity": "Red",
+        "estimatedCost": 90
+      },
+      {
+        "serviceId": 5,
+        "service": "Grease driveshaft (lithium chassis grease)",
+        "severity": "Red",
+        "estimatedCost": 95
+      }
+    ],
+    "asNeeded": [
+      {
+        "serviceId": 4,
+        "service": "Engine intake air filter",
+        "severity": "Yellow",
+        "estimatedCost": 40
+      }
+    ]
+  },
+  "70": {
+    "intervalK": 70,
+    "required": [
+      {
+        "serviceId": 1,
+        "service": "Engine oil and filter",
+        "severity": "White",
+        "estimatedCost": 90
+      },
+      {
+        "serviceId": 2,
+        "service": "Tire rotation and inspect for damage",
+        "severity": "White",
+        "estimatedCost": 30
+      },
+      {
+        "serviceId": 5,
+        "service": "Grease driveshaft (lithium chassis grease)",
+        "severity": "Red",
+        "estimatedCost": 95
+      }
+    ],
+    "asNeeded": [
+      {
+        "serviceId": 4,
+        "service": "Engine intake air filter",
+        "severity": "Yellow",
+        "estimatedCost": 40
+      },
+      {
+        "serviceId": 14,
+        "service": "Front brake pads",
+        "severity": "Yellow",
+        "estimatedCost": 300
+      }
+    ]
+  },
+  "75": {
+    "intervalK": 75,
+    "required": [
+      {
+        "serviceId": 2,
+        "service": "Tire rotation and inspect for damage",
+        "severity": "White",
+        "estimatedCost": 30
+      },
+      {
+        "serviceId": 5,
+        "service": "Grease driveshaft (lithium chassis grease)",
+        "severity": "White",
+        "estimatedCost": 95
+      },
+      {
+        "serviceId": 1,
+        "service": "Engine oil and filter",
+        "severity": "Red",
+        "estimatedCost": 90
+      },
+      {
+        "serviceId": 7,
+        "service": "Rear differential fluid (gear oil 75W-85 GL-5)",
+        "severity": "Red",
+        "estimatedCost": 160
+      },
+      {
+        "serviceId": 8,
+        "service": "Front differential fluid (gear oil 75W-85 GL-5)",
+        "severity": "Red",
+        "estimatedCost": 160
+      }
+    ],
+    "asNeeded": [
+      {
+        "serviceId": 4,
+        "service": "Engine intake air filter",
+        "severity": "Yellow",
+        "estimatedCost": 40
+      },
+      {
+        "serviceId": 16,
+        "service": "Brake fluid",
+        "severity": "Yellow",
+        "estimatedCost": 185
+      }
+    ]
+  },
+  "80": {
+    "intervalK": 80,
+    "required": [
+      {
+        "serviceId": 1,
+        "service": "Engine oil and filter",
+        "severity": "White",
+        "estimatedCost": 90
+      },
+      {
+        "serviceId": 2,
+        "service": "Tire rotation and inspect for damage",
+        "severity": "White",
+        "estimatedCost": 30
+      },
+      {
+        "serviceId": 3,
+        "service": "Cabin air filter",
+        "severity": "White",
+        "estimatedCost": 70
+      },
+      {
+        "serviceId": 5,
+        "service": "Grease driveshaft (lithium chassis grease)",
+        "severity": "Red",
+        "estimatedCost": 95
+      }
+    ],
+    "asNeeded": [
+      {
+        "serviceId": 4,
+        "service": "Engine intake air filter",
+        "severity": "Yellow",
+        "estimatedCost": 40
+      },
+      {
+        "serviceId": 13,
+        "service": "Rear brake shoes",
+        "severity": "Yellow",
+        "estimatedCost": 360
+      },
+      {
+        "serviceId": 14,
+        "service": "Front brake pads",
+        "severity": "Yellow",
+        "estimatedCost": 300
+      }
+    ]
+  },
+  "85": {
+    "intervalK": 85,
+    "required": [
+      {
+        "serviceId": 2,
+        "service": "Tire rotation and inspect for damage",
+        "severity": "White",
+        "estimatedCost": 30
+      },
+      {
+        "serviceId": 1,
+        "service": "Engine oil and filter",
+        "severity": "Red",
+        "estimatedCost": 90
+      },
+      {
+        "serviceId": 5,
+        "service": "Grease driveshaft (lithium chassis grease)",
+        "severity": "Red",
+        "estimatedCost": 95
+      }
+    ],
+    "asNeeded": [
+      {
+        "serviceId": 4,
+        "service": "Engine intake air filter",
+        "severity": "Yellow",
+        "estimatedCost": 40
+      }
+    ]
+  },
+  "90": {
+    "intervalK": 90,
+    "required": [
+      {
+        "serviceId": 1,
+        "service": "Engine oil and filter",
+        "severity": "White",
+        "estimatedCost": 90
+      },
+      {
+        "serviceId": 2,
+        "service": "Tire rotation and inspect for damage",
+        "severity": "White",
+        "estimatedCost": 30
+      },
+      {
+        "serviceId": 5,
+        "service": "Grease driveshaft (lithium chassis grease)",
+        "severity": "White",
+        "estimatedCost": 95
+      },
+      {
+        "serviceId": 7,
+        "service": "Rear differential fluid (gear oil 75W-85 GL-5)",
+        "severity": "White",
+        "estimatedCost": 160
+      },
+      {
+        "serviceId": 8,
+        "service": "Front differential fluid (gear oil 75W-85 GL-5)",
+        "severity": "White",
+        "estimatedCost": 160
+      },
+      {
+        "serviceId": 6,
+        "service": "Transfer case oil (gear oil LF 75W)",
+        "severity": "Red",
+        "estimatedCost": 185
+      }
+    ],
+    "asNeeded": [
+      {
+        "serviceId": 4,
+        "service": "Engine intake air filter",
+        "severity": "Yellow",
+        "estimatedCost": 40
+      },
+      {
+        "serviceId": 14,
+        "service": "Front brake pads",
+        "severity": "Yellow",
+        "estimatedCost": 300
+      }
+    ]
+  },
+  "95": {
+    "intervalK": 95,
+    "required": [
+      {
+        "serviceId": 2,
+        "service": "Tire rotation and inspect for damage",
+        "severity": "White",
+        "estimatedCost": 30
+      },
+      {
+        "serviceId": 1,
+        "service": "Engine oil and filter",
+        "severity": "Red",
+        "estimatedCost": 90
+      },
+      {
+        "serviceId": 5,
+        "service": "Grease driveshaft (lithium chassis grease)",
+        "severity": "Red",
+        "estimatedCost": 95
+      }
+    ],
+    "asNeeded": [
+      {
+        "serviceId": 4,
+        "service": "Engine intake air filter",
+        "severity": "Yellow",
+        "estimatedCost": 40
+      }
+    ]
+  },
+  "100": {
+    "intervalK": 100,
+    "required": [
+      {
+        "serviceId": 1,
+        "service": "Engine oil and filter",
+        "severity": "White",
+        "estimatedCost": 90
+      },
+      {
+        "serviceId": 2,
+        "service": "Tire rotation and inspect for damage",
+        "severity": "White",
+        "estimatedCost": 30
+      },
+      {
+        "serviceId": 3,
+        "service": "Cabin air filter",
+        "severity": "White",
+        "estimatedCost": 70
+      },
+      {
+        "serviceId": 10,
+        "service": "Power steering fluid (Dexron II or III)",
+        "severity": "White",
+        "estimatedCost": 185
+      },
+      {
+        "serviceId": 11,
+        "service": "Engine coolant (Toyota SLLC)",
+        "severity": "White",
+        "estimatedCost": 195
+      },
+      {
+        "serviceId": 12,
+        "service": "Transmission fluid (Toyota ATF WS / manual-specific)",
+        "severity": "White",
+        "estimatedCost": 340
+      },
+      {
+        "serviceId": 15,
+        "service": "Serpentine belt",
+        "severity": "White",
+        "estimatedCost": 150
+      },
+      {
+        "serviceId": 5,
+        "service": "Grease driveshaft (lithium chassis grease)",
+        "severity": "Red",
+        "estimatedCost": 95
+      }
+    ],
+    "asNeeded": [
+      {
+        "serviceId": 4,
+        "service": "Engine intake air filter",
+        "severity": "Yellow",
+        "estimatedCost": 40
+      },
+      {
+        "serviceId": 13,
+        "service": "Rear brake shoes",
+        "severity": "Yellow",
+        "estimatedCost": 360
+      },
+      {
+        "serviceId": 14,
+        "service": "Front brake pads",
+        "severity": "Yellow",
+        "estimatedCost": 300
+      },
+      {
+        "serviceId": 16,
+        "service": "Brake fluid",
+        "severity": "Yellow",
+        "estimatedCost": 185
+      }
+    ]
+  }
+}

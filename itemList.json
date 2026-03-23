@@ -1,0 +1,66 @@
+{
+  "1": {
+    "service": "Engine oil and filter",
+    "estimated_toyota_dealer_cost_usd": 85
+  },
+  "2": {
+    "service": "Tire rotation and inspect for damage",
+    "estimated_toyota_dealer_cost_usd": 30
+  },
+  "3": {
+    "service": "Cabin air filter",
+    "estimated_toyota_dealer_cost_usd": 60
+  },
+  "4": {
+    "service": "Engine intake air filter",
+    "estimated_toyota_dealer_cost_usd": 40
+  },
+  "5": {
+    "service": "Grease driveshaft (lithium chassis grease)",
+    "estimated_toyota_dealer_cost_usd": 95
+  },
+  "6": {
+    "service": "Transfer case oil (gear oil LF 75W)",
+    "estimated_toyota_dealer_cost_usd": 175
+  },
+  "7": {
+    "service": "Rear differential fluid (gear oil 75W-85 GL-5)",
+    "estimated_toyota_dealer_cost_usd": 160
+  },
+  "8": {
+    "service": "Front differential fluid (gear oil 75W-85 GL-5)",
+    "estimated_toyota_dealer_cost_usd": 160
+  },
+  "9": {
+    "service": "Spark plugs (Denso FK20HBR8, iridium)",
+    "estimated_toyota_dealer_cost_usd": 500
+  },
+  "10": {
+    "service": "Power steering fluid (Dexron II or III)",
+    "estimated_toyota_dealer_cost_usd": 185
+  },
+  "11": {
+    "service": "Engine coolant (Toyota SLLC)",
+    "estimated_toyota_dealer_cost_usd": 195
+  },
+  "12": {
+    "service": "Transmission fluid (Toyota ATF WS / manual-specific)",
+    "estimated_toyota_dealer_cost_usd": 300
+  },
+  "13": {
+    "service": "Rear brake shoes",
+    "estimated_toyota_dealer_cost_usd": 325
+  },
+  "14": {
+    "service": "Front brake pads",
+    "estimated_toyota_dealer_cost_usd": 285
+  },
+  "15": {
+    "service": "Serpentine belt",
+    "estimated_toyota_dealer_cost_usd": 150
+  },
+  "16": {
+    "service": "Brake fluid",
+    "estimated_toyota_dealer_cost_usd": 180
+  }
+}

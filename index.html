@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tacoma Lifecycle Cost Dashboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Toyota Tacoma lifecycle costing</p>
+          <h1>See the maintenance cost curve all the way to 500,000 miles.</h1>
+          <p class="hero-text">
+            This dashboard uses your populated JSON maintenance schedule, repeats the
+            0-100k plan across five 100k blocks, lets you tune each maintenance item cost live,
+            and models what your Tacoma may be worth as mileage climbs.
+          </p>
+        </div>
+        <div class="hero-card">
+          <div class="hero-label">Model assumption</div>
+          <div id="assumptionText" class="hero-value"></div>
+        </div>
+      </header>
+
+      <nav class="tab-bar" aria-label="Dashboard sections">
+        <button class="tab-button active" data-tab="dashboard">Lifecycle Dashboard</button>
+        <button class="tab-button" data-tab="costs">Cost Inputs</button>
+      </nav>
+
+      <main>
+        <section class="tab-panel active" data-panel="dashboard">
+          <section class="control-strip">
+            <div class="control-card">
+              <label for="targetMileage">Target mileage</label>
+              <input id="targetMileage" type="range" min="100000" max="500000" step="5000" value="500000" />
+              <div class="control-value"><span id="targetMileageValue"></span></div>
+            </div>
+            <div class="control-card">
+              <label for="viewMode">Cost view</label>
+              <select id="viewMode">
+                <option value="required">Required only</option>
+                <option value="max">Maximum possible</option>
+              </select>
+              <div class="control-note">Maximum includes all as-needed items.</div>
+            </div>
+            <div class="control-card">
+              <label for="conditionMode">Truck condition</label>
+              <select id="conditionMode">
+                <option value="fair">Fair</option>
+                <option value="good" selected>Good</option>
+                <option value="veryGood">Very good</option>
+                <option value="excellent">Excellent</option>
+              </select>
+              <div class="control-note">Adjusts the current KBB value anchor before projecting forward.</div>
+            </div>
+          </section>
+
+          <section class="kpi-grid">
+            <article class="kpi-card">
+              <span class="kpi-label">Required total</span>
+              <strong id="requiredTotal" class="kpi-value"></strong>
+            </article>
+            <article class="kpi-card">
+              <span class="kpi-label">Max possible total</span>
+              <strong id="maxTotal" class="kpi-value"></strong>
+            </article>
+            <article class="kpi-card">
+              <span class="kpi-label">Average per 10k</span>
+              <strong id="avgPer10k" class="kpi-value"></strong>
+            </article>
+            <article class="kpi-card">
+              <span class="kpi-label">Maintenance events</span>
+              <strong id="eventCount" class="kpi-value"></strong>
+            </article>
+            <article class="kpi-card">
+              <span class="kpi-label">Projected truck value</span>
+              <strong id="projectedValue" class="kpi-value"></strong>
+            </article>
+            <article class="kpi-card">
+              <span class="kpi-label">Maintenance / value</span>
+              <strong id="maintenanceValueRatio" class="kpi-value"></strong>
+            </article>
+          </section>
+
+          <section class="chart-grid">
+            <article class="panel">
+              <div class="panel-header">
+                <h2>Cumulative lifecycle cost</h2>
+                <p>Required cost vs. max possible cost over time.</p>
+              </div>
+              <div id="lineChart" class="chart-surface"></div>
+            </article>
+
+            <article class="panel">
+              <div class="panel-header">
+                <h2>Cost concentration by service</h2>
+                <p>Which maintenance items drive the most spend by your chosen mileage.</p>
+              </div>
+              <div id="serviceBars" class="chart-surface compact"></div>
+            </article>
+          </section>
+
+          <section class="chart-grid">
+            <article class="panel">
+              <div class="panel-header">
+                <h2>Tacoma value vs. maintenance burden</h2>
+                <p>Projected private-party value, cumulative maintenance, and the gap between them.</p>
+              </div>
+              <div id="valueChart" class="chart-surface"></div>
+            </article>
+
+            <article class="panel">
+              <div class="panel-header">
+                <h2>Current truck-value anchor</h2>
+                <p id="valueModelSummary"></p>
+              </div>
+              <div class="metric-stack">
+                <div><span>Current modeled private-party value</span><strong id="currentValueAnchor"></strong></div>
+                <div><span>Current modeled trade-in value</span><strong id="currentTradeAnchor"></strong></div>
+                <div><span>Mileage penalty vs. typical-mile example</span><strong id="mileagePenalty"></strong></div>
+                <div><span>Projected value at 500k</span><strong id="valueAt500k"></strong></div>
+              </div>
+            </article>
+          </section>
+
+          <section class="panel">
+            <div class="panel-header">
+              <h2>Interval timeline</h2>
+              <p>Every scheduled interval, including required and as-needed items.</p>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Mileage</th>
+                    <th>Cycle</th>
+                    <th>Required items</th>
+                    <th>As-needed items</th>
+                    <th>Required cost</th>
+                    <th>Max cost</th>
+                  </tr>
+                </thead>
+                <tbody id="timelineBody"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-header">
+              <h2>Maintenance inflection points</h2>
+              <p>
+                Flags when a service becomes a large percentage of projected truck value.
+                Required items are still labeled separately from discretionary as-needed items.
+              </p>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Service</th>
+                    <th>Type</th>
+                    <th>First caution</th>
+                    <th>First questionable</th>
+                    <th>First not-worth-it</th>
+                    <th>Current status</th>
+                  </tr>
+                </thead>
+                <tbody id="inflectionBody"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <section class="tab-panel" data-panel="costs">
+          <section class="panel">
+            <div class="panel-header">
+              <h2>Edit maintenance costs</h2>
+              <p>
+                Adjust any cost below. Changes update the dashboard immediately and persist in this browser.
+              </p>
+            </div>
+            <div class="cost-actions">
+              <button id="resetCosts" class="secondary-button">Reset to JSON defaults</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Maintenance item</th>
+                    <th>Dealer cost</th>
+                    <th>Used in schedule</th>
+                    <th>Economic note</th>
+                  </tr>
+                </thead>
+                <tbody id="costTableBody"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+      </main>
+
+      <section class="panel sources-panel">
+        <div class="panel-header">
+          <h2>Model sources</h2>
+          <p>
+            Vehicle-value inputs are anchored to web market data and depreciation studies, then extended with explicit mileage and age assumptions.
+          </p>
+        </div>
+        <ul id="sourcesList" class="source-list"></ul>
+      </section>
+    </div>
+
+    <script src="./dashboard-data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
